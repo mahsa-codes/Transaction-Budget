@@ -1,0 +1,75 @@
+*,*::before,*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #eceffc;
+}
+
+.loginForm , .registerForm{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    width: 100%;
+    max-width: 400px;
+    gap: 20px;
+    text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0.4px 0.4px rgba(128, 128, 128, 0.109),
+            0 1px 1px rgba(128, 128, 128, 0.155),
+            0 2.1px 2.1px rgba(128, 128, 128, 0.195),
+            0 4.4px 4.4px rgba(128, 128, 128, 0.241),
+            0 12px 12px rgba(128, 128, 128, 0.35);
+    color: white;
+}
+
+.loginForm input, button, .registerForm input , button {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    border: none;
+}
+
+.loginSubmit, .registerSubmit {
+    background: linear-gradient(120deg,
+                DodgerBlue);
+    color: white;
+    font-weight: 700;
+    font-size: large;
+}
+.outlinks {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+.loginForm a, .registerForm a {
+    color: white;
+    cursor: pointer;
+
+}
+.loginForm a:hover, .registerForm a:hover {
+    color: dodgerblue;
+}
+
