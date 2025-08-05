@@ -58,6 +58,7 @@ body {
     color: white;
     font-weight: 700;
     font-size: large;
+    cursor: pointer;
 }
 .outlinks {
     display: flex;

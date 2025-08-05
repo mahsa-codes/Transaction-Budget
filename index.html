@@ -6,11 +6,58 @@
         <title>Transaction Budget</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet">
         <link rel="stylesheet" href="./style.css">
         <script src="./script.js" async defer></script>
 
     </head>
     <body>
-      
+
+        <div class="navbar">
+            <div class="navbar-date">
+                <a href="index.html" class="active">Home</a>
+                <h4>1369/20/01</h4>
+            </div>
+            <div class="login">
+                <h5>Please Login</h5>
+                <button type="submit" id="loginButton">Login</button>
+            </div>
+        </div>
+        <div class="header">
+            <h2>Balance: 0.00</h2>
+            <div class="searchbar">
+                <input type="text" class="search" id="search" placeholder="Search your item?">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <div class="tarnsaction-container"> 
+            <div class="Transaction-form">
+                <form id="transactionForm">
+                    <h2>Transaction Budget</h2>
+                    <input type="text" id="title" placeholder="Title">
+                    <input type="date" id="date">
+                    <select id="category">
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="salary">Salary</option>
+                        <option value="groceries">Groceries</option>
+                        <option value="transport">Transport</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="bills">Bills</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <input type="number" id="amount" placeholder="Amount">
+                    <select id="type">
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option> 
+                </form>
+            </div>
+            <div class="Transaction-list"></div>
+        </div>
     </body>
 </html>
