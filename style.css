@@ -43,6 +43,15 @@ body {
     gap: 10px;
     align-items: center;
 }
+.navbar-date a:hover {
+    color: var(--primary-color);
+}
+
+.linkPage {
+    text-decoration: none;
+    color: white;
+}
+
 .active {
     color: var(--primary-color);
 }
@@ -67,9 +76,15 @@ body {
     cursor: pointer;
     transition: all 0.5s ease;
 }
+
+.login .hidden {
+    display: none;
+    background-color: var(--danger-color);
+}
+
 .login button:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 20px rgba(22, 22, 22, 0.5);
 }
 .header {
     display: flex;
@@ -127,7 +142,7 @@ body {
     display: grid;
     gap: 20px;
     padding: 20px; 
-    width: 350px;
+    width: 400px;
     justify-items: center;
 }
 #transactionForm input , #transactionForm select {

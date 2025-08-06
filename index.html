@@ -15,16 +15,18 @@
         <script src="./script.js" async defer></script>
 
     </head>
-    <body>
+    <body id="homePage">
 
         <div class="navbar">
             <div class="navbar-date">
                 <a href="index.html" class="active">Home</a>
-                <h4>1369/20/01</h4>
+                <a href="register.html" class="linkPage">Sign Up</a>
+                <h4 id="currentDate"></h4>
             </div>
-            <div class="login">
-                <h5>Please Login</h5>
-                <button type="submit" id="loginButton">Login</button>
+            <div class="login" >
+                <h5 id="greeting"></h5>
+                <button type="button" id="loginButton">Login</button>
+                <button type="button" id="logoutButton" class="hidden">Logout</button>
             </div>
         </div>
         <div class="header">
@@ -38,9 +40,14 @@
             <div class="Transaction-form">
                 <form id="transactionForm">
                     <h2>Transaction Budget</h2>
-                    <input type="text" id="title" placeholder="Title">
-                    <input type="date" id="date">
-                    <select id="category">
+                    <input type="text" id="title" placeholder="Title" required>
+                    <input type="number" id="amount" step="0.01" placeholder="Amount" required>
+                    <select id="type" required>
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                    <select id="category" required>
                         <option value="" disabled selected>Select Category</option>
                         <option value="salary">Salary</option>
                         <option value="groceries">Groceries</option>
@@ -50,12 +57,7 @@
                         <option value="shopping">Shopping</option>
                         <option value="other">Other</option>
                     </select>
-                    <input type="number" id="amount" placeholder="Amount">
-                    <select id="type">
-                        <option value="" disabled selected>Select Type</option>
-                        <option value="income">Income</option>
-                        <option value="expense">Expense</option>
-                    </select> 
+                    <input type="date" id="date" required>
                     <button type="submit">Add Transaction</button>
                 </form>
             </div>
