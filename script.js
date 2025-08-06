@@ -101,3 +101,38 @@ document.addEventListener("DOMContentLoaded", function () {
   }
  
 });
+const transactionForm = document.getElementById("transactionForm");
+transactionForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const title = document.getElementById("title").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+    const type = document.getElementById("type").value;
+    const category = document.getElementById("category").value;
+    const date = document.getElementById("date").value;
+
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let customAmount = Math.abs(Number(amount));
+    if(type === "expense") {
+        customAmount = -customAmount;
+    }
+    
+    if (currentUser) {
+        const transactionKey = `transactions_${currentUser.email}`;
+        let transactions = JSON.parse(localStorage.getItem(transactionKey)) || [];
+        const transaction = {
+          id: Date.now(),
+          title,
+          amount: customAmount,
+          type,
+          category,
+          date,
+          cssClass: type,
+        };
+        transactions.push(transaction);
+        localStorage.setItem(transactionKey, JSON.stringify(transactions));
+    } else {
+        alert("Please, first login");
+        return
+    }
+    transactionForm.reset();
+});
