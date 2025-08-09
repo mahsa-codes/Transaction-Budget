@@ -184,7 +184,8 @@ body {
 }
 .transaction-list .tarnsaction-container {
     display: flex;
-    justify-content: space-between; 
+    flex-direction: column;
+    gap: 1px;
     margin: 5px;
     padding: 10px;
     border-radius: 8px;
@@ -199,28 +200,40 @@ body {
 
 .budget-title {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    
+}
+.budget-title h2 {
+    margin: 0;
+    padding: 0;
+}
+.budget-detail {
+    display: flex;
+    justify-content: space-between;
     margin: 0;
     padding: 0;
     align-items: center;
 }
-.budget-title h2, .budget-title p {
+
+.budget-detail p, .budget-detail h3 {
     margin: 0;
     padding: 5px;
 }
 .budget-amount {
     display: flex;
-    flex-direction: column;
-    margin: 0;
+    justify-content: space-between;
     align-items: center;
-}
-.budget-amount h3 {
     margin: 0;
-    padding: 10px 5px;
+    padding: 0;
+}
+.budget-amount h5 {
+    margin: 0;
+    padding: 5px;
 }
 .budget-amount button {
     width: 100%;
     color: white;
+    max-width: fit-content;
     padding: 8px;
     background: var(--danger-color);
     font-size: 15px;
