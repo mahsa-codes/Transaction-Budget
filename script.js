@@ -99,7 +99,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   const transactions = getUserTransaction();
   renderTransactions(transactions);
-
+  deleteTransaction();
+  balanceCalculate();
 });
 const transactionForm = document.getElementById("transactionForm");
 transactionForm.addEventListener('submit', function(e){
@@ -163,6 +164,7 @@ function renderTransactions(list) {
   list.forEach(item => {
     const newList = document.createElement('div');
     newList.className = `transaction-container ${item.type}`;
+
     newList.innerHTML = `
       <div class="budget-title">
           <h2>${item.type}: ${item.title}</h2>
@@ -176,12 +178,45 @@ function renderTransactions(list) {
           <button type="button" id="deleteBtn" class="deleteBtn" data-id="${item.id}">Delete</button>
       </div>`;
     transactionList.append(newList);
-    deleteTransaction();
     
+  });
+}
+
+function deleteTransaction(){
+  const container = document.getElementById("transactionList");
+  if(!container) return;
+
+  container.addEventListener('click', function(e){
+    const deleteBtn = e.target.closest(".deleteBtn");
+    if(!deleteBtn) return;
+
+    const transactionId = parseInt(deleteBtn.dataset.id, 10);    
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));    
+    if(!currentUser) return;
+
+    const transactionKey = `transactions_${currentUser.email}`;
+    const list = JSON.parse(localStorage.getItem(transactionKey)) || [];    
+
+    
+    const exists = list.some((item) => item.id === transactionId);    
+    if(!exists) return;
+  
+
+    const confirmation = confirm("Are you sure to delete Transaction? ");
+    if(!confirmation) return;
+
+    const newList = list.filter((item) => item.id !== transactionId);
+    localStorage.setItem(transactionKey, JSON.stringify(newList));
+    renderTransactions(newList);
+    balanceCalculate();
   });
 }
 
 
 
 
- 
+
+
+
+

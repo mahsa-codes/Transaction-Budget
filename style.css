@@ -95,6 +95,17 @@ body {
     margin: 0px 10px;
     padding: 10px;
 }
+.header h2 {
+    font-size: 40px;
+    font-weight: 700;
+}
+.positive {
+    color: var(--secondary-color);
+}
+.negative {
+    color: var(--danger-color);
+}
+
 /* SEARCH */
 .searchbar input[type=text] {
     padding: 8px;
