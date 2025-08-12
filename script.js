@@ -213,7 +213,25 @@ function deleteTransaction(){
   });
 }
 
+function balanceCalculate() {
+  const balance = document.getElementById("balance");
+  if (!balance) return;
 
+  const transactions = getUserTransaction();
+  let balanceTotal = 0;
+
+  transactions.forEach((item) => {
+    balanceTotal += parseFloat(item.amount);
+  });
+
+  balance.classList.remove("positive", "negative");
+  if (balanceTotal > 0) {
+    balance.classList.add("positive");
+  } else if (balanceTotal < 0) {
+    balance.classList.add("negative");
+  }
+  balance.innerHTML = `Balance: ${balanceTotal}`;
+}
 
 
 
