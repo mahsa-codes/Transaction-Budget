@@ -99,8 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   const transactions = getUserTransaction();
   renderTransactions(transactions);
-  deleteTransaction();
   balanceCalculate();
+  deleteTransaction();
+  filterList();
 });
 const transactionForm = document.getElementById("transactionForm");
 transactionForm.addEventListener('submit', function(e){
@@ -164,22 +165,26 @@ function renderTransactions(list) {
   list.forEach(item => {
     const newList = document.createElement('div');
     newList.className = `transaction-container ${item.type}`;
-
     newList.innerHTML = `
       <div class="budget-title">
           <h2>${item.type}: ${item.title}</h2>
       </div>
       <div class="budget-detail">  
           <p><strong>Category: </strong>${item.category}</p>
-          <h3>${item.amount}$</h3>         
+          <h3 class="price">${item.amount}$</h3>         
       </div>
       <div class="budget-date">
           <h5>${item.date}</h5>
           <button type="button" id="deleteBtn" class="deleteBtn" data-id="${item.id}">Delete</button>
       </div>`;
-    transactionList.append(newList);
-    
+    transactionList.append(newList); 
   });
+  const chart = document.createElement("div");
+  chart.className = `chart-container`;
+  chart.innerHTML = `
+      <button type="button" class="chartBtn">Income Cahrt</button>
+      <button type="button" class="chartBtn">Expense Cahrt</button>`;
+  transactionList.append(chart);
 }
 
 function deleteTransaction(){
@@ -231,6 +236,55 @@ function balanceCalculate() {
     balance.classList.add("negative");
   }
   balance.innerHTML = `Balance: ${balanceTotal}`;
+}
+
+function filterList(){
+  const searchInput = document.getElementById("searchInput");
+  if (!searchInput) return;
+  searchInput.addEventListener("keyup", function (e) {
+    const searchItem = e.target.value.trim().toLowerCase();
+    console.log('search: ', searchItem);
+
+    const cards = document.querySelectorAll(".transaction-container");
+    if (!cards) return;
+
+    let balanceTotal = []
+    
+    cards.forEach(card =>{
+      const category = card.querySelector(".budget-detail p").textContent;
+      const title = card.querySelector(".budget-title").textContent;
+      const amount = card.querySelector(".price").textContent;
+      const newAmount = parseFloat(amount);
+    
+      
+
+  
+      if (category.includes(searchItem) || title.includes(searchItem)) {
+        card.style.removeProperty("display");
+        balanceTotal.push(newAmount);
+
+      } else {
+        card.style.display = "none";
+      }
+    })
+    updateBalanceFilter(balanceTotal);
+  });
+}
+
+function updateBalanceFilter(transactions) {
+  const balance = document.getElementById("balance");
+  if (!balance) return;
+
+  const total = transactions.reduce((sum, t) => sum + t, 0);
+
+  balance.innerHTML = `Balance: ${total}`; 
+   
+  balance.classList.remove("positive", "negative");
+  if (total > 0) {
+    balance.classList.add("positive");
+  } else if (total < 0) {
+    balance.classList.add("negative");
+  }
 }
 
 
