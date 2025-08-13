@@ -97,11 +97,33 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
   }
+  const getChartBtn = document.getElementById("chartBtn");
+  const closeChartBtn = document.getElementById("closeChart");
   const transactions = getUserTransaction();
   renderTransactions(transactions);
   balanceCalculate();
   deleteTransaction();
   filterList();
+
+  if (getChartBtn) {
+    getChartBtn.addEventListener("click", () => {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      if (!user) {
+        alert("Please, Login first!");
+        return;
+      }
+      openChart();
+
+      setupChart(getUserTransaction());
+    });
+  }
+  if (closeChartBtn) {
+    closeChartBtn.addEventListener("click", () => {
+      closeChart();
+    });
+  }
+
+
 });
 const transactionForm = document.getElementById("transactionForm");
 transactionForm.addEventListener('submit', function(e){
@@ -175,15 +197,11 @@ function renderTransactions(list) {
       </div>
       <div class="budget-date">
           <h5>${item.date}</h5>
-          <button type="button" id="deleteBtn" class="deleteBtn" data-id="${item.id}">Delete</button>
+          <button type="button" class="deleteBtn" data-id="${item.id}">Delete</button>
       </div>`;
     transactionList.append(newList); 
   });
-  const chart = document.createElement("div");
-  chart.className = `chart-container`;
-  chart.innerHTML = `
-      <button type="button" class="chartBtn">Get Cahrt</button>`;
-  transactionList.append(chart);
+
 }
 
 function deleteTransaction(){
@@ -214,6 +232,7 @@ function deleteTransaction(){
     localStorage.setItem(transactionKey, JSON.stringify(newList));
     renderTransactions(newList);
     balanceCalculate();
+    setupChart(newList);
   });
 }
 
@@ -254,10 +273,7 @@ function filterList(){
       const title = card.querySelector(".budget-title").textContent;
       const amount = card.querySelector(".price").textContent;
       const newAmount = parseFloat(amount);
-    
       
-
-  
       if (category.includes(searchItem) || title.includes(searchItem)) {
         card.style.removeProperty("display");
         balanceTotal.push(newAmount);
@@ -284,6 +300,75 @@ function updateBalanceFilter(transactions) {
   } else if (total < 0) {
     balance.classList.add("negative");
   }
+}
+
+let chart = null;
+function openChart(){
+  const chartOverlay = document.getElementById("chartOverlay");
+  const root = document.getElementById("rootPage");
+  root.classList.add("blur");
+  chartOverlay.classList.remove("hidden");
+}
+
+function closeChart() {
+  const chartOverlay = document.getElementById("chartOverlay");
+  const root = document.getElementById("rootPage");
+
+  if (chart) {
+    chart.destroy();
+    chart = null;
+  }
+  chartOverlay.classList.add("hidden");
+  root.classList.remove("blur");
+}
+
+
+
+function setupChart(transactions) {
+  const ctx = document.getElementById("txChart").getContext("2d");
+  const tx = [...transactions].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+
+  const labels = tx.map((t) => t.date);
+  const incomeData = tx.map((t) =>
+    t.type === "income" ? Number(t.amount) : 0
+  );
+  const expenseData = tx.map((t) =>
+    t.type === "expense" ? Math.abs(Number(t.amount)) : 0
+  );
+
+  if (chart) {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = incomeData;
+    chart.data.datasets[1].data = expenseData;
+    chart.update();
+  } else {
+    chart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "Income",
+            data: incomeData,
+            backgroundColor: "rgba(7, 125, 146, 1)",
+          },
+          {
+            label: "Expense",
+            data: expenseData,
+            backgroundColor: "rgba(184, 110, 41, 1)",
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } },
+        plugins: { legend: { position: "top" } },
+      },
+    });
+  }  
+    
 }
 
 
