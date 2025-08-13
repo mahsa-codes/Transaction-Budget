@@ -13,59 +13,67 @@
             rel="stylesheet">
         <link rel="stylesheet" href="./style.css">
         <script src="./script.js" async defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" async defer></script>
 
     </head>
     <body id="homePage">
-
-        <div class="navbar">
-            <div class="navbar-date">
-                <a href="index.html" class="active">Home</a>
-                <a href="register.html" class="linkPage">Sign Up</a>
-                <h4 id="currentDate"></h4>
+        <div class="mainPage">
+            <div class="navbar">
+                <div class="navbar-date">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="register.html" class="linkPage">Sign Up</a>
+                    <h4 id="currentDate"></h4>
+                </div>
+                <div class="login">
+                    <h5 id="greeting"></h5>
+                    <button type="button" id="loginButton">Login</button>
+                    <button type="button" id="logoutButton" class="hidden">Logout</button>
+                </div>
             </div>
-            <div class="login" >
-                <h5 id="greeting"></h5>
-                <button type="button" id="loginButton">Login</button>
-                <button type="button" id="logoutButton" class="hidden">Logout</button>
+            <div class="header">
+                <h2 id="balance"></h2>
+                <div class="searchbar">
+                    <input type="text" class="search" id="searchInput" placeholder="Search your item?">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+            <div class="tarnsaction-container">
+                <div class="Transaction-form">
+                    <form id="transactionForm">
+                        <h2>Transaction Budget</h2>
+                        <input type="text" id="title" placeholder="Title" required>
+                        <input type="number" id="amount" step="0.01" placeholder="Amount" required>
+                        <select id="type" required>
+                            <option value="" disabled selected>Select Type</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                        <select id="category" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="salary">Salary</option>
+                            <option value="groceries">Groceries</option>
+                            <option value="transport">Transport</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="bills">Bills</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <input type="date" id="date" required>
+                        <button type="submit">Add Transaction</button>
+                    </form>
+                </div>
+                <div class="transactionList" id="transactionList">
+                    <div class="transaction-container">
+                    </div>
+                    <div class="chart-container">
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="header">
-            <h2 id="balance"></h2>
-            <div class="searchbar">
-                <input type="text" class="search" id="searchInput" placeholder="Search your item?">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </div>
-        </div>
-        <div class="tarnsaction-container"> 
-            <div class="Transaction-form">
-                <form id="transactionForm">
-                    <h2>Transaction Budget</h2>
-                    <input type="text" id="title" placeholder="Title" required>
-                    <input type="number" id="amount" step="0.01" placeholder="Amount" required>
-                    <select id="type" required>
-                        <option value="" disabled selected>Select Type</option>
-                        <option value="income">Income</option>
-                        <option value="expense">Expense</option>
-                    </select>
-                    <select id="category" required>
-                        <option value="" disabled selected>Select Category</option>
-                        <option value="salary">Salary</option>
-                        <option value="groceries">Groceries</option>
-                        <option value="transport">Transport</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="bills">Bills</option>
-                        <option value="shopping">Shopping</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <input type="date" id="date" required>
-                    <button type="submit">Add Transaction</button>
-                </form>
-            </div>
-            <div class="transactionList" id="transactionList">
-                <div class="transaction-container"> 
-                </div>
-                <div class="chart-container">
-                </div>
+        <div id="chartOverlay" class="hidden" >
+            <div class="chart-model">
+                <canvas id="txChart"></canvas>
+                <button type="button" id="closeChart">Close</button>
             </div>
         </div>
     </body>

@@ -182,8 +182,7 @@ function renderTransactions(list) {
   const chart = document.createElement("div");
   chart.className = `chart-container`;
   chart.innerHTML = `
-      <button type="button" class="chartBtn">Income Cahrt</button>
-      <button type="button" class="chartBtn">Expense Cahrt</button>`;
+      <button type="button" class="chartBtn">Get Cahrt</button>`;
   transactionList.append(chart);
 }
 
