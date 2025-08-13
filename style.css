@@ -133,7 +133,7 @@ body {
     background: #0b7dda;
 }
 
-.tarnsaction-container {
+.transactions-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
@@ -142,12 +142,12 @@ body {
 }
 
 @media (max-width: 768px) {
-    .tarnsaction-container {
-        flex-direction: column;
-        align-items: stretch;
+    .transactions-container{
+       grid-template-columns: 1fr;
     }
-    .Transaction-form , .transactionList {
-        width: 100%;
+    .transactionList , .Transaction-form {
+       width: 100%;
+       margin: 10px 0;
     }
 
 }
